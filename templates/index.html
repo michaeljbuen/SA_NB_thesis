@@ -1,0 +1,139 @@
+
+{% extends "bootstrap/base.html" %}
+
+
+{% block head %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Semantic Approach on Naive Bayes Classification Algorithm</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="{{ url_for('static', filename='sb/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="{{ url_for('static', filename='sb/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="{{ url_for('static', filename='et/assets/css/animate.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='et/assets/css/style_2.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo text-center">
+                            <h1>semantic_naive-bayes.net</h1>
+                            <span>An experimental study</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Start Main Body Section -->
+        <div class="mainbody-section text-center">
+            <div class="container">
+
+                    
+                    <!--<div class="col-md-3">
+
+                        <div class="menu-item blue">
+                            <a href="#feature-modal" data-toggle="modal">
+                                <i class="fa fa-magic"></i>
+                                <p>Feature</p>
+                            </a>
+                        </div>
+
+                        <div class="menu-item green">
+                            <a href="#portfolio-modal" data-toggle="modal">
+                                <i class="fa fa-file-photo-o"></i>
+                                <p>Portfolio</p>
+                            </a>
+                        </div>
+
+                        <div class="menu-item light-red">
+                            <a href="#about-modal" data-toggle="modal">
+                                <i class="fa fa-user"></i>
+                                <p>About Us</p>
+                            </a>
+                        </div>
+
+                    </div>
+                    -->
+                    <div class="col-md-12">
+                        
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="menu-item blue responsive">
+                                    <a href="dataset">
+                                        <i class="fa fa-envelope"></i>
+                                        <p>Email Dataset</p>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="menu-item color responsive-2">
+                                    <a href="charts">
+                                        <i class="fa fa-chart-bar"></i>
+                                        <p>Comparative Charts</p>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+
+                    <!--
+                    <div class="col-md-3">
+                        
+                        <div class="menu-item light-red">
+                            <a href="#contact-modal" data-toggle="modal">
+                                <i class="fa fa-envelope-o"></i>
+                                <p>Contact</p>
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item color">
+                            <a href="#testimonial-modal" data-toggle="modal">
+                                <i class="fa fa-comment-o"></i>
+                                <p>Testimonial</p>
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item blue">
+                            <a href="#news-modal" data-toggle="modal">
+                                <i class="fa fa-mortar-board"></i>
+                                <p>Latest News</p>
+                            </a>
+                        </div>
+                        
+                    </div>
+                    -->
+
+            </div>
+        </div>
+        <!-- End Main Body Section -->
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='et/assets/js/jquery-2.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='et/assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='et/assets/js/jquery.appear.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='et/assets/js/contact_me.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='et/assets/js/jqBootstrapValidation.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='et/assets/js/modernizr.custom.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='et/assets/js/script.js') }}"></script>
+{% endblock %}
