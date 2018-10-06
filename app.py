@@ -10,6 +10,8 @@ from nltk.corpus import stopwords
 import random
 import time
 
+from nlp import process, format_sentence
+
 
 
 
@@ -20,52 +22,19 @@ Bootstrap(app)
 dt=ctime()
 
 
+
 @app.route('/')
 def main():
     return render_template('index.html', dt=dt)
 
 
-
-
-
 @app.route('/dataset/view/<int:id>')
 def view(id):
-    id=id
-    start = time.time()
-    rawtext = df['content'][id-1]
-        # NLP Stuff
-    blob = TextBlob(rawtext)
-    received_text2 = blob
-    #blob_sentiment, blob_subjectivity = blob.sentiment.polarity, blob.sentiment.subjectivity
-    number_of_tokens = len(list(blob.words))
-
-    slist = (word for word in blob.words if word not in stopwords.words('english'))
-    new_text = ' '.join(slist)
-    new_blob = TextBlob(new_text)
-    new_received = new_blob
-
-    blob_sentiment, blob_subjectivity = new_blob.sentiment.polarity, new_blob.sentiment.subjectivity
-        # Extracting Main Points
-    nouns = list()
-
-    for word, tag in blob.tags:
-         if tag == 'NN':
-            nouns.append(word.lemmatize())
-            len_of_words = len(nouns)
-            rand_words = random.sample(nouns, len(nouns))
-            final_word = list()
-            for item in rand_words:
-                word = Word(item).pluralize()
-                final_word.append(word)
-                summary = final_word
-                end = time.time()
-                final_time = end - start
-         else:
-             summary = ''
-             final_time = time.time()-start
-             len_of_words=0
-
-
+    #received_text2, new_received, number_of_tokens, blob_sentiment, blob_subjectivity, summary, final_time, len_of_words, pos, neg, training, test=process(id)
+    received_text2, new_received, number_of_tokens, blob_sentiment, blob_subjectivity, summary, final_time, len_of_words = process(id)
+    # print(pos)
+    # print(neg)
+    # print(training)
     return render_template('dataset_view.html', received_text=received_text2, new_received=new_received, number_of_tokens=number_of_tokens,
                            blob_sentiment=blob_sentiment, blob_subjectivity=blob_subjectivity, summary=summary,
                            final_time=final_time, len=len_of_words, dt=dt, id=id, df=df)
@@ -73,6 +42,12 @@ def view(id):
 
 @app.route('/dataset/')
 def dataset():
+    #sentiment = []
+    #for i in range(0, len(df)):
+        #i=i+1
+       # sentiment.append(process(i)[3])
+
+    #return render_template('dataset.html', dt=dt, df=df, sentiment=sentiment)
     return render_template('dataset.html', dt=dt, df=df)
 
 
