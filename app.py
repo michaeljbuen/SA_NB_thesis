@@ -10,7 +10,7 @@ from nltk.corpus import stopwords
 import random
 import time
 
-from nlp import process, run_nb, tr
+from nlp import process, run_nb, tr, analyze_snb, analyze_nb
 
 import tkinter as tk
 from time import sleep
@@ -60,14 +60,17 @@ def charts():
 
 @app.route('/naivebayes')
 def nb():
-    # for i in range(0, 10):
-    #     i=i+1
-    #     run_nb(i)
+    for i in range(0, 10):
+        i=i+1
+        run_nb(i)
 
+    #print("NB: ")
+    #anb = analyze_nb()
+    #analyze_nb()
+    #print("S-NB: ")
+    #analyze_snb()
+    return render_template('nb.html',dt=dt, anb=analyze_nb()[0], asnb = analyze_snb()[0], accnb = analyze_nb()[1], accsnb = analyze_snb()[1])
 
-    print(tr)
-    print(len(df))
-    return render_template('nb.html',dt=dt)
 
 
 if __name__ == '__main__':
