@@ -64,12 +64,16 @@ def nb():
         i=i+1
         run_nb(i)
 
+    anb, accnb = analyze_nb()
+    asnb, accsnb = analyze_snb()
+
+
     #print("NB: ")
     #anb = analyze_nb()
     #analyze_nb()
     #print("S-NB: ")
     #analyze_snb()
-    return render_template('nb.html',dt=dt, anb=analyze_nb()[0], asnb = analyze_snb()[0], accnb = analyze_nb()[1], accsnb = analyze_snb()[1])
+    return render_template('nb.html',dt=dt, anb=anb, asnb = asnb, accnb = accnb, accsnb = accsnb)
 
 
 

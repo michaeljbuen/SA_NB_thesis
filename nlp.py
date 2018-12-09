@@ -88,9 +88,9 @@ def run_nb(id):
     # test = pos[int((.8) * len(pos)):] + neg[int((.8) * len(neg)):]
 
 
-def analyze_snb():
+def analyze_nb():
     #print(tr)
-    print ("SNB:")
+    print ("NB:")
     #3 kinds of sets
 
     for i in range(0, 10):
@@ -111,7 +111,7 @@ def analyze_snb():
 
 
     #train_set, test_set = feature_set_tr[0:5], feature_set_tr[5:10]
-    train_set, test_set = feature_set_rfs, feature_set_rfs
+    train_set, test_set = feature_set_t, feature_set_tr
 
     #another
     # all_words = set(word.lower() for passage in tr for word in word_tokenize(passage[0]))
@@ -136,11 +136,11 @@ def analyze_snb():
 
     asnb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
 
-    return asnb, acc
+    return (asnb, acc)
 
-def analyze_nb():
+def analyze_snb():
     #print(tr)
-    print ("NB:")
+    print ("SNB:")
     #enron set
     # vocabulary = set(chain(*[word_tokenize(i[0].lower()) for i in tr]))
     #
@@ -168,7 +168,7 @@ def analyze_nb():
 
    #train_set, test_set = t_tr[0:10], t
 
-    train_set, test_set = t_rfs, t_tr
+    train_set, test_set = t, t_tr
 
     # print(t)
     # print(t_tr)
@@ -195,7 +195,7 @@ def analyze_nb():
     anb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
 
     # return nltk.classify.accuracy(classifier, test_set)
-    return anb, acc
+    return (anb, acc)
 def process(id):
     #run_nb(id)
     id=id
