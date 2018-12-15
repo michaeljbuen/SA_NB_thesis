@@ -27,6 +27,8 @@ train = [
     ]
 
 t_rf = list()
+
+
 def run_nb(id):
     id = id
     start = time.time()
@@ -89,12 +91,15 @@ def run_nb(id):
 
 
 def analyze_nb():
+    start = time.time()
+    dfcol = list()
+
     #print(tr)
     print ("NB:")
     #3 kinds of sets
 
-    for i in range(0, 10):
-        t_rf.append((rf['review'][i], rf['label'][i]))
+    # for i in range(0, 10):
+    #     t_rf.append((rf['review'][i], rf['label'][i]))
 
 
     vocabulary_t = set(chain(*[word_tokenize(i[0].lower()) for i in train]))
@@ -105,9 +110,9 @@ def analyze_nb():
     feature_set_tr = [({i: (i in word_tokenize(sentence.lower())) for i in vocabulary_tr}, tag) for sentence, tag in
                    tr]
 
-    vocabulary_rfs = set(chain(*[word_tokenize(i[0].lower()) for i in t_rf]))
-    feature_set_rfs = [({i: (i in word_tokenize(sentence.lower())) for i in vocabulary_rfs}, tag) for sentence, tag in
-                   t_rf]
+    # vocabulary_rfs = set(chain(*[word_tokenize(i[0].lower()) for i in t_rf]))
+    # feature_set_rfs = [({i: (i in word_tokenize(sentence.lower())) for i in vocabulary_rfs}, tag) for sentence, tag in
+    #                t_rf]
 
 
     #train_set, test_set = feature_set_tr[0:5], feature_set_tr[5:10]
@@ -126,19 +131,28 @@ def analyze_nb():
 
     classifier = nbc.train(train_set)
 
-    test_sentence = "This is the worst band!"
-    featurized_test_sentence = {i: (i in word_tokenize(test_sentence.lower())) for i in vocabulary_t}
+    # test_sentence = "This is the worst band!"
+    # featurized_test_sentence = {i: (i in word_tokenize(test_sentence.lower())) for i in vocabulary_t}
     #
-    print("test_sent:", test_sentence)
-    print("tag:", classifier.classify(featurized_test_sentence))
+    # print("test_sent:", test_sentence)
+    # print("tag:", classifier.classify(featurized_test_sentence))
     #classifier.show_most_informative_features()
     print("Accuracy: ", nltk.classify.accuracy(classifier, test_set))
 
     asnb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
 
-    return (asnb, acc)
+    end = time.time()
+
+    final_time = end-start
+
+    for i in range (20,30):
+        dfcol.append(classifier.classify({j: (j in word_tokenize(df['content'][i].lower())) for j in vocabulary_tr}))
+
+    return (asnb, acc, final_time, dfcol)
 
 def analyze_snb():
+    start = time.time()
+    dfcol = list()
     #print(tr)
     print ("SNB:")
     #enron set
@@ -149,8 +163,8 @@ def analyze_snb():
     #
     # print (tr)
 
-    for i in range(0, 10):
-        t_rf.append((rf['review'][i], rf['label'][i]))
+    # for i in range(0, 10):
+    #     t_rf.append((rf['review'][i], rf['label'][i]))
 
     #another
     all_words = set(word.lower() for passage in train for word in word_tokenize(passage[0]))
@@ -159,8 +173,8 @@ def analyze_snb():
     all_words_tr = set(word.lower() for passage in tr for word in word_tokenize(passage[0]))
     t_tr = [({word: (word in word_tokenize(x[0])) for word in all_words_tr}, x[1]) for x in tr]
 
-    all_words_rf = set(word.lower() for passage in t_rf for word in word_tokenize(passage[0]))
-    t_rfs = [({word: (word in word_tokenize(x[0])) for word in all_words_rf}, x[1]) for x in t_rf]
+    # all_words_rf = set(word.lower() for passage in t_rf for word in word_tokenize(passage[0]))
+    # t_rfs = [({word: (word in word_tokenize(x[0])) for word in all_words_rf}, x[1]) for x in t_rf]
 
 
 
@@ -184,18 +198,24 @@ def analyze_snb():
 
     classifier = nbc.train(train_set)
 
-    test_sentence = "This is the worst band!"
-    featurized_test_sentence = {word.lower(): (word in word_tokenize(test_sentence.lower())) for word in all_words}
+    # test_sentence = "This is the worst band!"
+    # featurized_test_sentence = {word.lower(): (word in word_tokenize(test_sentence.lower())) for word in all_words}
     #
-    print("test_sent:", test_sentence)
-    print("tag:", classifier.classify(featurized_test_sentence))
+    # print("test_sent:", test_sentence)
+    # print("tag:", classifier.classify(featurized_test_sentence))
     #classifier.show_most_informative_features()
     print("Accuracy: ", nltk.classify.accuracy(classifier, test_set))
 
     anb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
 
+    end = time.time()
+    final_time = time.time()-start
     # return nltk.classify.accuracy(classifier, test_set)
-    return (anb, acc)
+
+    for i in range (20,30):
+        dfcol.append(classifier.classify({j: (j in word_tokenize(df['content'][i].lower())) for j in all_words_tr}))
+
+    return (anb, acc, final_time, dfcol)
 def process(id):
     #run_nb(id)
     id=id
@@ -258,6 +278,7 @@ def process(id):
         # classifier = NaiveBayesClassifier.train(t)
         #
         # classifier.show_most_informative_features()
+
 
     #return (received_text2, new_received, number_of_tokens, blob_sentiment, blob_subjectivity, summary, final_time, len_of_words, pos, neg, training, test)
     return (received_text2, new_received, number_of_tokens, blob_sentiment, blob_subjectivity, summary, final_time, len_of_words, markstop)

@@ -12,7 +12,7 @@ var myLineChart = new Chart(ctx, {
       label: "Sentiment",
       backgroundColor: "rgba(7,57,126,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [4215, 5312],
+      data: [60, 80],
     }],
   },
   options: {
@@ -31,7 +31,7 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
+          max: 100,
           maxTicksLimit: 5
         },
         gridLines: {
