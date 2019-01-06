@@ -15,7 +15,7 @@
             </li>
 
             <li class="nav-item active">
-              <a class="nav-link" href="/naivebayes" onclick="return loading();">
+              <a class="nav-link" href="/naivebayes">
                 <i class="fas fa-fw fa-comments"></i>
                 <span>Training and Testing</span>
               </a>
@@ -44,7 +44,7 @@
               </ol>
 
             <div class="container">
-                <div class="card mb-2">
+{#                <div class="card mb-2">#}
 {#                    <div class="card-header">#}
 {#                        <i class="fas fa-pen"></i>#}
 {#                      Input text</div>#}
@@ -63,14 +63,37 @@
 {#                            </form>#}
 {#                    </div>#}
 {#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+
+                <div class="card card-login mx-auto mb-5">
+                        <div class="card-header">
+                            <i class="fas fa-database"></i> Train Data
+                        </div>
+
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                                <label>No. of Train Data</label>
+                                                <select class="form-control">
+                                                    <option>10</option>
+                                                </select>
+
+                            </div>
+                            <a href="/naivebayes/train" class="btn btn-primary" onclick="return loading();"><i class="fa fa-cogs"></i> Train</a>
+                        </div>
+                        <div class="card-footer"></div>
                 </div>
+
+
                 <div class="card mb-3">
+
                      <div class="card-header">
                         <i class="fas fa-comments"></i>
                       Naive Bayes</div>
                     <div class="card-body">
                         Accuracy:
-                    <h1>{{  accnb }} // {{ accnb * 100 }}%</h1>
+                    <h1>{{  accnb }} | {{ accnb * 100 }}%</h1>
 
                                                   <div class="table-responsive">
                                                     <table class="table table-striped table-dark" id="dataTable" width="100%" cellspacing="0">
@@ -101,7 +124,7 @@
                       Semantic Naive Bayes</div>
                     <div class="card-body">
                         Accuracy:
-                    <h1>{{  accsnb }} // {{ accsnb * 100 }}%</h1>
+                    <h1>{{  accsnb }} | {{ accsnb * 100 }}%</h1>
 
                                                   <div class="table-responsive">
                                                     <table class="display table table-striped table-dark" id="dataTable2" width="100%" cellspacing="0">
@@ -126,10 +149,8 @@
                     </div>
                     <div class="card-footer"><p><i class="fa fa-clock"></i> Runtime: <span style="color:#0091EA;">{{ ft }} </span></p></div>
                     </div>
-                </div>
 
-
-            <div class="card mb-3">
+        <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-list-ol"></i>
               Test Data Examples - Semantic Naive Bayes</div>
@@ -172,8 +193,8 @@
 {#            <div class="card-footer small text-muted">Updated: {{ dt }}</div>#}
           </div>
 
+        </div>
 
-            </div>
         </div>
     </div>
 
@@ -188,4 +209,10 @@
 }       );
 
     </script>
+
+    <script type="text/javascript">// <![CDATA[
+        function loading(){
+            alert("Dictionary will load. This may take a while.");
+        }
+// ]]></script>
 {% endblock %}

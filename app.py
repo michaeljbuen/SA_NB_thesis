@@ -60,16 +60,20 @@ def charts():
 
 @app.route('/naivebayes')
 def nb():
-    if tr == []:
-        for i in range(0, 10):
-            i=i+1
-            run_nb(i)
+    # if tr == []:
+    #     for i in range(0, 10):
+    #         i=i+1
+    #         run_nb(i)
+    #
+    #
+    # anb, accnb, t, dfcol = analyze_nb()
+    # asnb, accsnb, t2, dfcol2 = analyze_snb()
+    #
+    # ft = t+t2
 
-
-    anb, accnb, t, dfcol = analyze_nb()
-    asnb, accsnb, t2, dfcol2 = analyze_snb()
-
-    ft = t+t2
+    anb, accnb, t, dfcol = "", "", "", ""
+    asnb, accsnb, t2, dfcol2 = "","","",""
+    ft=0
 
     #print("NB: ")
     #anb = analyze_nb()
@@ -78,7 +82,18 @@ def nb():
     #analyze_snb()
     return render_template('nb.html',dt=dt, anb=anb, asnb = asnb, accnb = accnb, accsnb = accsnb, ft=ft, df=df, dfcol=dfcol, dfcol2=dfcol2)
 
+@app.route('/naivebayes/train')
+def bp_nb():
+    if tr == []:
+        for i in range(0, 10):
+            i=i+1
+            run_nb(i)
 
+    anb, accnb, t, dfcol = analyze_nb()
+    asnb, accsnb, t2, dfcol2 = analyze_snb()
+
+    ft = t+t2
+    return render_template('nb.html',dt=dt, anb=anb, asnb = asnb, accnb = accnb, accsnb = accsnb, ft=ft, df=df, dfcol=dfcol, dfcol2=dfcol2)
 
 if __name__ == '__main__':
     app.run(debug=True)

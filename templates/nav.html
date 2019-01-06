@@ -110,7 +110,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" onclick="return loading();" href="/naivebayes">
+          <a class="nav-link" href="/naivebayes">
             <i class="fas fa-fw fa-comments"></i>
             <span>Training and Testing</span>
           </a>
@@ -181,9 +181,5 @@
     <script src="{{ url_for('static', filename='sb/js/demo/datatables-demo.js') }}"></script>
     <script src="{{ url_for('static', filename='sb/js/demo/chart-bar-demo.js') }}"></script>
 
-    <script type="text/javascript">// <![CDATA[
-        function loading(){
-            alert("Dictionary will load. This may take a while.");
-        }
-// ]]></script>
+
 {% endblock %}
