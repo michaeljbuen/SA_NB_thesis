@@ -85,7 +85,7 @@ def nb():
 @app.route('/naivebayes/train')
 def bp_nb():
     if tr == []:
-        for i in range(0, 10):
+        for i in range(0, 15):
             i=i+1
             run_nb(i)
 

@@ -5,6 +5,11 @@ from textblob.classifiers import NaiveBayesClassifier
 import nltk
 from nltk.corpus import stopwords
 from nltk.classify import NaiveBayesClassifier as nbc
+
+#from textblob.classifiers import NaiveBayesClassifier as tnbc
+#from nltk.classify import apply_features
+
+from nltk.metrics import precision
 from nltk.tokenize import word_tokenize
 from itertools import chain
 
@@ -30,7 +35,7 @@ t_rf = list()
 
 
 def run_nb(id):
-    id = id
+    id = id+1
     start = time.time()
     rawtext = df['content'][id - 1]
     # NLP Stuff
@@ -73,13 +78,13 @@ def run_nb(id):
         tr.append((str(new_received), 'pos'))
     # else:
     #     tr.append((str(new_received), 'neg'))
-    elif blob_sentiment < 0.0:
+    else:
         # neg.append([format_sentence(str(new_received)), 'neg'])
         tr.append((str(new_received), 'neg'))
-
-    else:
-        # ntr.append([format_sentence(str(new_received)), 'ntr'])
-        tr.append((str(new_received), 'ntr'))
+    #
+    # else:
+    #     # ntr.append([format_sentence(str(new_received)), 'ntr'])
+    #     tr.append((str(new_received), 'ntr'))
 
     # print(blob_sentiment)
 
@@ -116,13 +121,16 @@ def analyze_nb():
 
 
     #train_set, test_set = feature_set_tr[0:5], feature_set_tr[5:10]
-    train_set, test_set = feature_set_t, feature_set_tr
+    train_set, test_set = feature_set_tr, feature_set_t
 
+
+
+    #print (feature_set_t)
     #another
     # all_words = set(word.lower() for passage in tr for word in word_tokenize(passage[0]))
     # t = [({word: (word in word_tokenize(x[0])) for word in all_words}, x[1]) for x in tr]
 
-    #train_set, test_set = feature_set[0:10], feature_set[10:20]
+    #train_set, test_set = feature_set_tr[0:10], feature_set_tr[10:20]
     #SAMPLE SET
     # vocabulary = set(chain(*[word_tokenize(i[0].lower()) for i in train]))
     #
@@ -138,8 +146,9 @@ def analyze_nb():
     # print("tag:", classifier.classify(featurized_test_sentence))
     #classifier.show_most_informative_features()
     print("Accuracy: ", nltk.classify.accuracy(classifier, test_set))
+    #print ("p", nltk.metrics.precision(train_set, test_set))
 
-    asnb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
+    anb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
 
     end = time.time()
 
@@ -148,7 +157,7 @@ def analyze_nb():
     for i in range (20,30):
         dfcol.append(classifier.classify({j: (j in word_tokenize(df['content'][i].lower())) for j in vocabulary_tr}))
 
-    return (asnb, acc, final_time, dfcol)
+    return (anb, acc, final_time, dfcol)
 
 def analyze_snb():
     start = time.time()
@@ -180,9 +189,9 @@ def analyze_snb():
 
     #t_rf = [({rf['review'][0]},rf['label'][0])]
 
-   #train_set, test_set = t_tr[0:10], t
+    #train_set, test_set = t_tr[0:10], t_tr[10:20]
 
-    train_set, test_set = t, t_tr
+    train_set, test_set = t_tr, t
 
     # print(t)
     # print(t_tr)
@@ -198,15 +207,21 @@ def analyze_snb():
 
     classifier = nbc.train(train_set)
 
+    #classifier_t = tnbc.train(train)
+
     # test_sentence = "This is the worst band!"
     # featurized_test_sentence = {word.lower(): (word in word_tokenize(test_sentence.lower())) for word in all_words}
     #
     # print("test_sent:", test_sentence)
     # print("tag:", classifier.classify(featurized_test_sentence))
     #classifier.show_most_informative_features()
+
     print("Accuracy: ", nltk.classify.accuracy(classifier, test_set))
 
-    anb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
+    #print ("Accuracy, textblob:", classifier_t.accuracy(test_set))
+    #classifier_t.show_informative_features(5)
+
+    asnb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
 
     end = time.time()
     final_time = time.time()-start
@@ -215,7 +230,7 @@ def analyze_snb():
     for i in range (20,30):
         dfcol.append(classifier.classify({j: (j in word_tokenize(df['content'][i].lower())) for j in all_words_tr}))
 
-    return (anb, acc, final_time, dfcol)
+    return (asnb, acc, final_time, dfcol)
 def process(id):
     #run_nb(id)
     id=id
@@ -223,6 +238,7 @@ def process(id):
     rawtext = df['content'][id-1]
         # NLP Stuff
     blob = TextBlob(rawtext)
+
     received_text2 = blob
     #blob_sentiment, blob_subjectivity = blob.sentiment.polarity, blob.sentiment.subjectivity
     number_of_tokens = len(list(blob.words))
