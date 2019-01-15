@@ -35,9 +35,9 @@ t_rf = list()
 
 
 def run_nb(id):
-    id = id+1
+    id = id
     start = time.time()
-    rawtext = df['content'][id - 1]
+    rawtext = df['content'][id]
     # NLP Stuff
     blob = TextBlob(rawtext)
     #received_text2 = blob
@@ -121,7 +121,7 @@ def analyze_nb():
 
 
     #train_set, test_set = feature_set_tr[0:5], feature_set_tr[5:10]
-    train_set, test_set = feature_set_tr, feature_set_t
+    train_set, test_set = feature_set_t, feature_set_tr
 
 
 
@@ -152,9 +152,9 @@ def analyze_nb():
 
     end = time.time()
 
-    final_time = end-start
+    final_time = end - start
 
-    for i in range (20,30):
+    for i in range (30,40):
         dfcol.append(classifier.classify({j: (j in word_tokenize(df['content'][i].lower())) for j in vocabulary_tr}))
 
     return (anb, acc, final_time, dfcol)
@@ -224,11 +224,15 @@ def analyze_snb():
     asnb, acc = classifier.show_most_informative_features(), nltk.classify.accuracy(classifier, test_set)
 
     end = time.time()
-    final_time = time.time()-start
+    final_time = end - start
+
     # return nltk.classify.accuracy(classifier, test_set)
 
-    for i in range (20,30):
+    for i in range (30,40):
         dfcol.append(classifier.classify({j: (j in word_tokenize(df['content'][i].lower())) for j in all_words_tr}))
+
+
+
 
     return (asnb, acc, final_time, dfcol)
 def process(id):

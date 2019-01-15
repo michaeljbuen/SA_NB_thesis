@@ -85,15 +85,14 @@ def nb():
 @app.route('/naivebayes/train')
 def bp_nb():
     if tr == []:
-        for i in range(0, 15):
-            i=i+1
+        for i in range(0, 10):
             run_nb(i)
 
     anb, accnb, t, dfcol = analyze_nb()
     asnb, accsnb, t2, dfcol2 = analyze_snb()
 
-    ft = t+t2
-    return render_template('nb.html',dt=dt, anb=anb, asnb = asnb, accnb = accnb, accsnb = accsnb, ft=ft, df=df, dfcol=dfcol, dfcol2=dfcol2)
+
+    return render_template('nb.html',dt=dt, anb=anb, asnb = asnb, accnb = accnb, accsnb = accsnb, t=t, t2=t2, df=df, dfcol=dfcol, dfcol2=dfcol2)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -88,7 +88,7 @@
 
                 <div class="card mb-3">
 
-                     <div class="card-header">
+                     <div class="card-header bg-info">
                         <i class="fas fa-comments"></i>
                       Naive Bayes</div>
                     <div class="card-body">
@@ -116,10 +116,11 @@
                                                     </table>
                                                   </div>
                     </div>
+                <div class="card-footer"><p><i class="fa fa-clock"></i> Runtime: <span style="color:#0091EA;">{{ t }} </span></p></div>
                 </div>
 
                 <div class="card mb-3">
-                    <div class="card-header">
+                    <div class="card-header bg-warning">
                        <i class="fas fa-book-open"></i> <i class="fas fa-comments"></i>
                       Semantic Naive Bayes</div>
                     <div class="card-body">
@@ -147,11 +148,54 @@
                                                     </table>
                                                   </div>
                     </div>
-                    <div class="card-footer"><p><i class="fa fa-clock"></i> Runtime: <span style="color:#0091EA;">{{ ft }} </span></p></div>
+                    <div class="card-footer"><p><i class="fa fa-clock"></i> Runtime: <span style="color:#0091EA;">{{ t2 }} </span></p></div>
                     </div>
+        <div class="card mb-3">
+            <div class="card-header bg-info">
+                <i class="fas fa-list-ol"></i>
+              Test Data Examples - Naive Bayes</div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="display table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+
+                      <th>Message</th>
+                      <th>Sentiment</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+
+                  </tfoot>
+                  <tbody>
+                  {% for i in range(0,10) %}
+                      <tr>
+
+                      <td>{{ i+1 }}</td>
+                        <td>{{ df['content'][i+30] }}</td>
+                          {#<{% if sentiment[i]>0 %}
+                              <td>Positive</td>
+                          {% elif sentiment[i]<0%}
+                              <td>Negative</td>
+                          {% else %}
+                              <td>Neutral</td>
+                          {% endif %}#}
+                    <td>  {{ dfcol[i] }}</td>
+
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+{#            <div class="card-footer small text-muted">Updated: {{ dt }}</div>#}
+          </div>
+
 
         <div class="card mb-3">
-            <div class="card-header">
+            <div class="card-header bg-warning">
                 <i class="fas fa-list-ol"></i>
               Test Data Examples - Semantic Naive Bayes</div>
             <div class="card-body">
@@ -173,7 +217,7 @@
                       <tr>
 
                       <td>{{ i+1 }}</td>
-                        <td>{{ df['content'][i+20] }}</td>
+                        <td>{{ df['content'][i+30] }}</td>
                           {#<{% if sentiment[i]>0 %}
                               <td>Positive</td>
                           {% elif sentiment[i]<0%}
