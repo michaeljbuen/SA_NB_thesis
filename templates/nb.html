@@ -16,7 +16,7 @@
 
             <li class="nav-item active">
               <a class="nav-link" href="/naivebayes">
-                <i class="fas fa-fw fa-comments"></i>
+                <i class="fa fa-cogs"></i>
                 <span>Training and Testing</span>
               </a>
             </li>
@@ -73,15 +73,23 @@
 
 
                         <div class="card-body">
+                        <form method="POST" action="{{ url_for('bp_nb') }}">
                             <div class="form-group">
                                                 <label>No. of Train Data</label>
-                                                <select class="form-control">
-                                                    <option>10</option>
+                                                <select name="select_train" class="form-control">
+                                                    <option value=10>10</option>
+                                                    <option value=50>50</option>
+                                                    <option value=100>100</option>
+                                                    <option value=500>500</option>
+                                                    <option value=1000>1000</option>
                                                 </select>
 
+
+                            <button type="submit" class="btn btn-primary" onclick="return loading();"><i class="fa fa-cogs"></i> Train</button>
                             </div>
-                            <a href="/naivebayes/train" class="btn btn-primary" onclick="return loading();"><i class="fa fa-cogs"></i> Train</a>
+                        </form>
                         </div>
+
                         <div class="card-footer"></div>
                 </div>
 
