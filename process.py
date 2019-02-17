@@ -5,7 +5,7 @@ from csv_splitter import split
 
 #split(open('static/imdb_csv/imdb_master.csv', 'r'))
 #split(open('static/enron_csv/original_enron/emails.csv', 'r'))
-df = pd.read_csv('static/enron_csv/split_enron/output_35.csv')
+df = pd.read_csv('static/enron_csv/split_enron_2/output_18.csv')
 rf = pd.read_csv ('static/imdb_csv/split_imdb/output_1.csv', encoding = "ISO-8859-1")
 
 

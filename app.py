@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for
 from flask_bootstrap import Bootstrap
 from time import ctime
+import csv_splitter
 
 
 from process import df
@@ -26,6 +27,7 @@ dt=ctime()
 
 @app.route('/')
 def main():
+    #csv_splitter.split(open('C:/Users/Mico/PycharmProjects/SA_NB/static/enron_csv/original_enron/emails.csv', 'r'))
     return render_template('index.html', dt=dt)
 
 

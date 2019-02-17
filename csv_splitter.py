@@ -1,8 +1,8 @@
 import os
 
 
-def split(filehandler, delimiter=',', row_limit=1000,
-          output_name_template='output_%s.csv', output_path='static/imdb_csv', keep_headers=True):
+def split(filehandler, delimiter=',', row_limit=2000,
+          output_name_template='output_%s.csv', output_path='static/enron_csv/split_enron_2', keep_headers=True):
     """
     Splits a CSV file into multiple pieces.
 
