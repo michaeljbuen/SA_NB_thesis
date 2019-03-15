@@ -5,6 +5,10 @@ from textblob.classifiers import NaiveBayesClassifier
 import nltk
 from nltk.corpus import stopwords
 from nltk.classify import NaiveBayesClassifier as nbc
+from nltk.metrics import ConfusionMatrix
+
+
+from sklearn.model_selection import KFold
 
 #from textblob.classifiers import NaiveBayesClassifier as tnbc
 #from nltk.classify import apply_features
@@ -13,11 +17,17 @@ from nltk.metrics import precision
 from nltk.tokenize import word_tokenize
 from itertools import chain
 
+import numpy as np
+
 import random
 import time
 import json
 
 tr = list()
+
+em = list()
+sent = list()
+
 train = [
         ('I love this sandwich.', 'pos'),
         ('This is an amazing place!', 'pos'),
@@ -71,16 +81,19 @@ def run_nb(id):
     # neg = []
     # ntr = []
 
-
+    em.append(str(new_received))
 
     if blob_sentiment > 0.0:
         # pos.append([format_sentence(str(new_received)), 'pos']
         tr.append((str(new_received), 'pos'))
+
+        sent.append('pos')
     # else:
     #     tr.append((str(new_received), 'neg'))
     else:
         # neg.append([format_sentence(str(new_received)), 'neg'])
         tr.append((str(new_received), 'neg'))
+        sent.append('neg')
     #
     # else:
     #     # ntr.append([format_sentence(str(new_received)), 'ntr'])
@@ -95,12 +108,31 @@ def run_nb(id):
     # test = pos[int((.8) * len(pos)):] + neg[int((.8) * len(neg)):]
 
 
+
 def analyze_nb():
     start = time.time()
     dfcol = list()
 
     #print(tr)
     print ("NB:")
+
+    # e = np.array(tr)
+    # # s = np.array(sent)
+    #
+    # kf = KFold(5, shuffle=False)
+    #
+    #
+    #
+    # for train_index, test_index in kf.split(e):
+    #     print('x-train: %s, y-train: %s' % (train_index, train_index))
+    #     print('x-test: %s, y-test: %s' % (test_index, test_index))
+
+    # ref = 'neg neg pos pos neg pos pos neg neg pos'.split()
+    # tagged = 'neg neg pos neg neg pos neg neg pos neg'.split()
+    #
+    # cm = ConfusionMatrix(ref, tagged)
+    # print(cm)
+
     #3 kinds of sets
 
     # for i in range(0, 10):
@@ -157,6 +189,8 @@ def analyze_nb():
     for i in range (30,40):
         dfcol.append(classifier.classify({j: (j in word_tokenize(df['content'][i].lower())) for j in vocabulary_tr}))
 
+
+
     return (anb, acc, final_time, dfcol)
 
 def analyze_snb():
@@ -164,6 +198,13 @@ def analyze_snb():
     dfcol = list()
     #print(tr)
     print ("SNB:")
+
+    # ref = 'neg neg pos pos neg pos pos neg neg pos'.split()
+    # tagged = 'neg neg pos pos neg pos neg neg neg neg'.split()
+    #
+    # cm = ConfusionMatrix(ref, tagged)
+    # print(cm)
+
     #enron set
     # vocabulary = set(chain(*[word_tokenize(i[0].lower()) for i in tr]))
     #
